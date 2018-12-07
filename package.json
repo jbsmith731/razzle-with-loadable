@@ -9,11 +9,10 @@
     "start:prod": "NODE_ENV=production node build/server.js"
   },
   "dependencies": {
-    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@loadable/babel-plugin": "^5.0.1",
-    "@loadable/component": "^5.1.2",
-    "@loadable/server": "^5.1.1",
-    "@loadable/webpack-plugin": "^5.0.2",
+    "@loadable/component": "^5.2.1",
+    "@loadable/server": "^5.2.0",
+    "@loadable/webpack-plugin": "^5.2.1",
     "express": "^4.16.4",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",

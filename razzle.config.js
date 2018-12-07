@@ -1,20 +1,20 @@
 'use strict';
 const LoadablePlugin = require('@loadable/webpack-plugin');
+const path = require('path');
 
 module.exports = {
   modify(config, { target, dev }, webpack) {
-    if (target === 'web') {
-      return {
-        ...config,
-        plugins: [
-          ...config.plugins,
-          new LoadablePlugin({
-            filename: 'build/loadable-stats.json'
-          }),
-        ],
-      };
-    }
+    const appConfig = config; // stay immutable here
 
-    return config;
+    if (target === 'web') {
+      const filename = path.resolve(__dirname, 'build/loadable-stats.json')
+
+      appConfig.plugins = [
+        ...appConfig.plugins,
+        new LoadablePlugin({ writeToDisk: true, filename }),
+      ]
+    }
+            
+    return appConfig;
   },
 };
