@@ -1,9 +1,24 @@
 import React from 'react';
 
-const Home = (props) => (
-  <h1>
-    Hi, from Home
-  </h1>
-);
+export default class extends React.Component {
 
-export default Home;
+  state = {
+    counter: 0
+  }
+
+  handleClick = () => {
+    this.setState(prevState => ({
+      counter: prevState.counter + 1,
+    }));
+  }
+
+  render() {
+
+    return (
+      <div>
+        <button onClick={this.handleClick}>increase</button>
+        <div>{this.state.counter}</div>
+      </div>
+    )
+  }
+}
