@@ -3,7 +3,6 @@
     "razzle/babel"
   ], 
   "plugins": [
-    "@loadable/babel-plugin",
-    "@babel/plugin-transform-runtime"
+    "@loadable/babel-plugin"
   ]
 }

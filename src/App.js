@@ -1,20 +1,20 @@
 import React from 'react';
-import { Link, Switch } from 'react-router-dom';
-import loadable from '@loadable/component'
-// import Home from './Home';
-// import Test from './Test';
+import { Link, Router } from '@reach/router';
+import loadable from '@loadable/component';
+import routes from './routes';
 
-const Test = loadable(() => import('./Test'));
-const Home = loadable(() => import('./Home'));
+const NotFound = loadable(() => import("./NotFound"));
 
 const App = () => (
   <div>
     <Link to="/">Home</Link>
-    <Link to="/test">Test</Link>
-    <Switch>
-      <Home exact path="/" />
-      <Test path="/test" />
-    </Switch>
+    <Link to="/about">About</Link>
+    <Router>
+      <NotFound default />
+      {routes.map(({ exact, path, component: Component }) => (
+        <Component key={path} path={path} exact={exact} />
+      ))}
+    </Router>
   </div>
 );
 

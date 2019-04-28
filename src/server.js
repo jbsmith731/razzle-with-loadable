@@ -1,29 +1,29 @@
-import App from './App';
-import React from 'react';
-import express from 'express';
-import { renderToString } from 'react-dom/server';
-import { StaticRouter } from 'react-router-dom';
-import { ChunkExtractor } from '@loadable/server';
-import path from 'path';
+import App from "./App";
+import React from "react";
+import express from "express";
+import { renderToString } from "react-dom/server";
+import { ServerLocation } from "@reach/router";
+import { ChunkExtractor } from "@loadable/server";
+import path from "path";
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 const server = express();
 
 server
-  .disable('x-powered-by')
+  .disable("x-powered-by")
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
-  .get('/*', (req, res) => {
+  .get("/*", (req, res) => {
     let staticContext = {};
     const extractor = new ChunkExtractor({
-      statsFile: path.resolve('build/loadable-stats.json'),
-      entrypoints: ['client'],
+      statsFile: path.resolve("build/loadable-stats.json"),
+      entrypoints: ["client"]
     });
 
     const jsx = extractor.collectChunks(
-      <StaticRouter location={req.url} context={staticContext}>
+      <ServerLocation url={req.url}>
         <App />
-      </StaticRouter>
-    )
+      </ServerLocation>
+    );
 
     const markup = renderToString(jsx);
 
