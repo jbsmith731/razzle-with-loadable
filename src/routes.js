@@ -6,7 +6,6 @@ const Home = loadable(() => import('./Home'));
 const routes = [
   {
     path: '/',
-    exact: true,
     component: Home
   },
   {

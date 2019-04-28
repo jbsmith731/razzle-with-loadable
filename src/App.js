@@ -12,7 +12,7 @@ const App = () => (
     <Router>
       <NotFound default />
       {routes.map(({ exact, path, component: Component }) => (
-        <Component key={path} path={path} exact={exact} />
+        <Component key={path} path={path} />
       ))}
     </Router>
   </div>
