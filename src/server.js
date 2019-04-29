@@ -4,6 +4,7 @@ import express from "express";
 import { renderToString } from "react-dom/server";
 import { ServerLocation } from "@reach/router";
 import { ChunkExtractor } from "@loadable/server";
+import { ServerStyleSheet } from "styled-components";
 import path from "path";
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
@@ -19,13 +20,18 @@ server
       entrypoints: ["client"]
     });
 
+    const sheet = new ServerStyleSheet();
+
     const jsx = extractor.collectChunks(
-      <ServerLocation url={req.url}>
-        <App />
-      </ServerLocation>
+      sheet.collectStyles(
+        <ServerLocation url={req.url}>
+          <App />
+        </ServerLocation>
+      )
     );
 
     const markup = renderToString(jsx);
+    const styleTags = sheet.getStyleTags();
 
     res.send(
       // prettier-ignore
@@ -36,11 +42,7 @@ server
           <meta charSet='utf-8' />
           <title>Welcome to Razzle</title>
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          ${
-            assets.client.css
-              ? `<link rel="stylesheet" href="${assets.client.css}">`
-              : ''
-          } 
+          ${styleTags}
         </head>
         <body>
           <div id="root">${markup}</div>

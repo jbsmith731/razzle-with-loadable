@@ -2,11 +2,16 @@ import React from 'react';
 import { Link, Router } from '@reach/router';
 import loadable from '@loadable/component';
 import routes from './routes';
+import styled from 'styled-components';
 
-const NotFound = loadable(() => import("./NotFound"));
+const NotFound = loadable(() => import("./components/NotFound"));
+
+const Wrap = styled.div`
+  font-family: sans-serif;
+`;
 
 const App = () => (
-  <div>
+  <Wrap>
     <Link to="/">Home</Link>
     <Link to="/about">About</Link>
     <Router>
@@ -15,7 +20,7 @@ const App = () => (
         <Component key={path} path={path} />
       ))}
     </Router>
-  </div>
+  </Wrap>
 );
 
 export default App;

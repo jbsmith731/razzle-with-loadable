@@ -1,7 +1,7 @@
 import loadable from '@loadable/component'
 
-const About = loadable(() => import('./About'));
-const Home = loadable(() => import('./Home'));
+const About = loadable(() => import('./components/About'));
+const Home = loadable(() => import('./components/Home'));
 
 const routes = [
   {
